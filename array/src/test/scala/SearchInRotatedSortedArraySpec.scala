@@ -1,18 +1,30 @@
 import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 
-class SearchInRotatedSortedArraySpec extends AnyFlatSpec {
-  "SearchInRotatedSortedArray" should "run test 1" in {
-    val result = Solution.search(Array[Int](4,5,6,7,0,1,2), 0)
-    assert(result == 4)
-  }
+class SearchInRotatedSortedArraySpec extends AnyFlatSpec with Matchers {
 
-  "SearchInRotatedSortedArray" should "run test 2" in {
-    val result = Solution.search(Array[Int](4,5,6,7,0,1,2), 3)
-    assert(result == -1)
-  }
+  val tests = Seq(
+    (
+      Seq(4,5,6,7,0,1,2),
+      0,
+      4
+    ),
+    (
+      Seq(4,5,6,7,0,1,2),
+      3,
+      -1
+    ),
+    (
+      Seq(1),
+      0,
+      -1
+    )
+  )
 
-  "SearchInRotatedSortedArray" should "run test 3" in {
-    val result = Solution.search(Array[Int](1), 0)
-    assert(result == -1)
+  for (test <- tests) {
+    "SearchInRotatedSortedArray" should test.toString() in {
+      val result = Solution.search(test._1.toArray, test._2)
+      result shouldEqual test._3
+    }
   }
 }
